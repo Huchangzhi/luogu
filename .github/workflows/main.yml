@@ -1,0 +1,19 @@
+name: Luogu auto punch
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download script
+        run: Invoke-WebRequest https://raw.githubusercontent.com/xcx0902/python/main/luogu-auto-punch.py -OutFile script.py
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run script
+        run: python .\script.py $Env:COOKIE
+        env:
+          COOKIE: "__client_id=7fb21a01796c74e6d50bdb0de71bf3fae030e33a;_uid=1031975;"
